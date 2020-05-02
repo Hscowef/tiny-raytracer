@@ -39,25 +39,6 @@ impl Vec3 {
     pub fn normalize(&self) -> Vec3 {
         self / self.lenght()
     }
-
-    pub fn get_color(&self) -> String {
-        let max = self.x.max(self.y.max(self.z));
-        
-        let mut return_value = self.clone();
-        if max > 1.0 {
-            return_value = self * (1.0 / max) 
-        }
-
-        let x = (return_value.x.min(1.0)).max(0.0) * 255.0;
-        let y = (return_value.y.min(1.0)).max(0.0) * 255.0;
-        let z = (return_value.z.min(1.0)).max(0.0) * 255.0;
-        format!(
-            "{} {} {}\n",
-            x as u32,
-            y as u32,
-            z as u32
-        )
-    }
 }
 
 impl Add for Vec3 {
