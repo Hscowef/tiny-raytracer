@@ -36,22 +36,24 @@ impl Hitable for Sphere {
         // Distance between pc and the center 
         let d = (&self.center - &(&ray.origin + &pc)).lenght(); 
 
-        if !(d > self.radius) {
+        if d < self.radius {
             // Distance between the hit point and pc
             let a = (self.radius * self.radius - d * d).sqrt();
             let hit_distance = p - a;
             
-            //let dist_2 = p + a;
+            let exit_distance = p + a;
             
             if hit_distance < 0.0 {
                 return None
             }
 
             let hit_point = &ray.origin + &(&ray.direction * hit_distance); 
+            let exit_point = &ray.origin + &(&ray.direction * exit_distance); 
             let normal = (&hit_point - &self.center).normalize();
             
             return Some (HitInfos {
                 hit_point,
+                exit_point,
                 hit_distance,
                 normal,
                 material: self.material.clone()

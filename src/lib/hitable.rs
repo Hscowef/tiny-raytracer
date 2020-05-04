@@ -2,13 +2,14 @@ use crate::lib::vec3::Vec3;
 use crate::lib::ray::Ray;
 use crate::lib::material::Material;
 
-pub trait Hitable: Sync {
+pub trait Hitable: Sync + Send {
     fn ray_intersect(&self, ray: &Ray) -> Option<HitInfos>;
 }
 
 #[derive(Debug, Clone)]
 pub struct HitInfos {
     pub hit_point: Vec3,
+    pub exit_point: Vec3,
     pub hit_distance: f32,
     pub normal: Vec3,
     pub material: Material
